@@ -7,6 +7,10 @@
     "sequelize": "^6.32.1"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "seed": "sequelize db:seed:all",
+    "undoSeed": "sequelize db:seed:undo:all",
+    "migrate": "sequelize db:migrate",
+    "undoMigrate": "sequelize db:migrate:undo:all"
   }
 }

@@ -13,6 +13,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      artist: {
+        type: Sequelize.STRING
+      },
       url: {
         type: Sequelize.STRING,
         allowNull: false

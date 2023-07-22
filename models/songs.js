@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-
+    artist: {
+      type: DataTypes.STRING,
+    },
     url: {
         type: DataTypes.STRING,
         allowNull: false
