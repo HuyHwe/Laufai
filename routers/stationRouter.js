@@ -1,17 +1,12 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const stationRouter = express.Router();
 const songs = require("../models").songs;
 
+stationRouter.use(bodyParser.urlencoded({extended:true}));
+
 stationRouter.get("/", (req, res, next) => {
     res.render("station");
-})
-stationRouter.get("/json",(req, res, next) => {
-    songs.findAll().then((response) => {
-        res.json(response);
-    }).catch(e => {
-        console.log(e);
-    })
-    
 })
 
 module.exports = stationRouter;

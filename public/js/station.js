@@ -1,11 +1,28 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 
-
-fetch("http://localhost:3010/station/json").then(async (response) => {
+fetch("station/json/songs").then(async (response) => {
     let musicList = await response.json();
-    let index = 0;
-    console.log(musicList);
+    
+    function addNop() {
+        console.log("ok playing");
+        (async () => {
+            const rawResponse = await fetch('station/json/nop', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                id: musicList[index].id,
+                name: musicList[index].name, 
+            })
+            });
+            const content = await rawResponse.json();
+          
+            console.log(content);
+          })();
+    }
     let music = new Audio(musicList[index].url);
     const track = audioContext.createMediaElementSource(music);
     track.connect(audioContext.destination);
@@ -16,9 +33,7 @@ fetch("http://localhost:3010/station/json").then(async (response) => {
     const nextButton = document.getElementById("next");
     const volumeControl = document.querySelector("#volume");
     
-    music.addEventListener("playing", () => {
-        console.log("ok playing");
-    })
+    music.addEventListener("loadstart", addNop);
     music.addEventListener("ended", () => {
         console.log("ended");
     })
@@ -41,14 +56,13 @@ fetch("http://localhost:3010/station/json").then(async (response) => {
         music.pause();
         index++;
         music = new Audio(musicList[index].url);
+        music.addEventListener("play", addNop);
         music.play();
         playButton.dataset.playing = true;
     })
     
     
-    volumeControl.addEventListener(
-      "input",
-      () => {
+    volumeControl.addEventListener("input",() => {
         gainNode.gain.value = volumeControl.value;
       },
       false,
