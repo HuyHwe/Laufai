@@ -76,6 +76,24 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //  {
+      //   name: "Không Thích",
+      //   url: "static/music/y2mate.com - Button Beep FX 2 HD.mp3",
+      //   type: 1,
+      //   artist: "low g",
+      //   nop:10,
+      //   createdAt: new Date(),
+      //   updatedAt: new Date()
+      // },  {
+      //   name: "Không Thích",
+      //   url: "static/music/y2mate.com - Tiếng Beep dùng để thay thế các ngôn ngữ 18  Beep Sound Effect.mp3",
+      //   type: 1,
+      //   artist: "low g",
+      //   nop:10,
+      //   createdAt: new Date(),
+      //   updatedAt: new Date()
+      // },
+      
 
     ], {});
   },

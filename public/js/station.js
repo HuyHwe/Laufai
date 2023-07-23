@@ -5,19 +5,32 @@ const audioContext = new AudioContext();
 fetch("station/json/songs").then(async (response) => {
     let musicList = await response.json();
     let index = 0;
-    for (let i = 0; i < musicList.length; i++) {
-        let minNop = musicList[i].nop;
-        let minPos = i;
-        for (let j = i; j < musicList.length; j++) {
-            if (musicList[j].nop < minNop) {
-                minPos = j;
-                minNop = musicList[j].nop;
+    function shuffleList() {
+        if (Math.random()*5 > 1) {
+            for (let i = 0; i < musicList.length; i++) {
+                const temp = musicList[i];
+                const randIdx = Math.floor(Math.random()*musicList.length);
+                musicList[i] = musicList[randIdx];
+                musicList[randIdx] = temp;
+            }
+        } else {
+            for (let i = 0; i < musicList.length; i++) {
+                let minNop = musicList[i].nop;
+                let minPos = i;
+                for (let j = i; j < musicList.length; j++) {
+                    if (musicList[j].nop < minNop) {
+                        minPos = j;
+                        minNop = musicList[j].nop;
+                    }
+                }
+                temp = musicList[i];
+                musicList[i] = musicList[minPos];
+                musicList[minPos] = temp;
             }
         }
-        temp = musicList[i];
-        musicList[i] = musicList[minPos];
-        musicList[minPos] = temp;
     }
+
+    shuffleList();
 
     function addNop() {
         (async () => {
@@ -37,6 +50,21 @@ fetch("station/json/songs").then(async (response) => {
             console.log(content);
           })();
     }
+
+    function nextSong() {
+        console.log("ended");
+        index++;
+        if(index >= musicList.length) {
+            index = 0;
+            shuffleList();
+            console.log("shuffle")
+        }
+        music = new Audio(musicList[index].url);
+        music.addEventListener("play", addNop);
+        music.addEventListener("ended", nextSong);
+        music.play();
+        playButton.dataset.playing = true;
+    }
     let music = new Audio(musicList[index].url);
     const track = audioContext.createMediaElementSource(music);
     track.connect(audioContext.destination);
@@ -47,10 +75,7 @@ fetch("station/json/songs").then(async (response) => {
     const nextButton = document.getElementById("next");
     const volumeControl = document.querySelector("#volume");
     
-    music.addEventListener("loadstart", addNop);
-    music.addEventListener("ended", () => {
-        console.log("ended");
-    })
+    
     playButton.addEventListener("click", () => {
         if (audioContext.state = "suspended") {
             audioContext.resume();
@@ -65,14 +90,11 @@ fetch("station/json/songs").then(async (response) => {
         }
     
     })
-    
+    music.addEventListener("loadstart", addNop);
+    music.addEventListener("ended", nextSong);
     nextButton.addEventListener("click", () => {
         music.pause();
-        index++;
-        music = new Audio(musicList[index].url);
-        music.addEventListener("play", addNop);
-        music.play();
-        playButton.dataset.playing = true;
+        nextSong();
     })
     
     
