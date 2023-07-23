@@ -1,11 +1,25 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 
+
 fetch("station/json/songs").then(async (response) => {
     let musicList = await response.json();
-    
+    let index = 0;
+    for (let i = 0; i < musicList.length; i++) {
+        let minNop = musicList[i].nop;
+        let minPos = i;
+        for (let j = i; j < musicList.length; j++) {
+            if (musicList[j].nop < minNop) {
+                minPos = j;
+                minNop = musicList[j].nop;
+            }
+        }
+        temp = musicList[i];
+        musicList[i] = musicList[minPos];
+        musicList[minPos] = temp;
+    }
+
     function addNop() {
-        console.log("ok playing");
         (async () => {
             const rawResponse = await fetch('station/json/nop', {
               method: 'POST',
