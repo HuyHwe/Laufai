@@ -14,9 +14,12 @@ jsonStationRouter.get("/songs",(req, res, next) => {
     
 })
 
-jsonStationRouter.post("/nop", (req, res, next) => {
-    const id =  req.body.id;
-    songs.increment('nop', { by: 1, where: { id: id }});
+jsonStationRouter.get("/songs/:type_id",(req, res, next) => {
+    songs.findAll({where:{type_id: Number(req.params.type_id)}}).then((response) => {
+        res.json(response);
+    }).catch(e => {
+        console.log(e);
+    })
     
 })
 

@@ -1,5 +1,6 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
+const body = document.getElementById("body")
 const playButton = document.getElementById("play");
 const nextButton = document.getElementById("next");
 const backButton = document.getElementById("back");
@@ -12,7 +13,9 @@ for (let i = 0; i < volumeArr.length; i++) {
         pos: i+1
     })
 }
+let typeControlList = document.querySelectorAll(".type");
 
+let index = 0;
 function shuffleList(musicList) {
     for (let i = 0; i < musicList.length; i++) {
         const temp = musicList[i];
@@ -23,7 +26,7 @@ function shuffleList(musicList) {
     return musicList;
 }
 
-function nextSong(musicList,index) {
+function nextSong(musicList) {
     console.log("next");
     index++;
     if(index >= musicList.length) {
@@ -32,10 +35,14 @@ function nextSong(musicList,index) {
         console.log("shuffle")
     }
     let music = new Audio(musicList[index].url);
-    music.addEventListener("ended", nextSong);
-    return {musicList, index, music};
+    
+    music.addEventListener("ended", () => {
+        nextSong(musicList);
+        changeTitle();
+    });
+    return {musicList, music};
 }
-function backSong(musicList,index) {
+function backSong(musicList) {
     console.log("back");
     index--;
     if(index <= 0) {
@@ -43,14 +50,13 @@ function backSong(musicList,index) {
     }
     music = new Audio(musicList[index].url);
     music.addEventListener("ended", nextSong);
-    return {musicList, index, music};
+    return {musicList, music};
 }
 
 function playMusic(music) {
     music.play().then(() => {
         playButton.setAttribute("src", "static/button/stop.png");
         playButton.dataset.playing = true;
-        title.innerText = musicList[index].name + " - " + musicList[index].artist
     }).catch(e => {
         console.log(e);
     })   
@@ -63,7 +69,6 @@ function pauseMusic(music) {
 
 fetch("station/json/songs").then(async (response) => {
     let musicList = await response.json();
-    let index = 0;
     musicList = shuffleList(musicList);
     let music = new Audio(musicList[index].url);
     
@@ -79,19 +84,23 @@ fetch("station/json/songs").then(async (response) => {
         }
     });
 
-    title.innerText = musicList[index].name + " - " + musicList[index].artist
+    title.innerText = musicList[index].name + " - " + musicList[index].artist;
     music.addEventListener("ended", () => {
-            ({musicList, index, music} = nextSong(musicList, index));
+            ({musicList, music} = nextSong(musicList));
             playMusic(music);
+            function changeTitle() {
+                title.innerText = musicList[index].name + " - " + musicList[index].artist
+            }
+            changeTitle();
     });
     nextButton.addEventListener("click", () => {
         nextButton.setAttribute("src", "/static/button/nextOnClick.png")
         if (playButton.dataset.playing == "true") {
             pauseMusic(music);
-            ({musicList, index, music} = nextSong(musicList, index));
+            ({musicList, music} = nextSong(musicList));
             playMusic(music);
         } else {
-            ({musicList, index, music} = nextSong(musicList, index));
+            ({musicList, music} = nextSong(musicList));
             playMusic(music);
         }
         title.innerText = musicList[index].name + " - " + musicList[index].artist
@@ -103,10 +112,10 @@ fetch("station/json/songs").then(async (response) => {
         backButton.setAttribute("src", "/static/button/backOnClick.png")
         if (playButton.dataset.playing == "true") {
             pauseMusic(music);
-            ({musicList, index, music} = backSong(musicList, index));
+            ({musicList, music} = backSong(musicList));
             playMusic(music);
         } else {
-            ({musicList, index, music} = backSong(musicList, index));
+            ({musicList, music} = backSong(musicList));
             playMusic(music);
         } 
         title.innerText = musicList[index].name + " - " + musicList[index].artist
@@ -125,4 +134,33 @@ fetch("station/json/songs").then(async (response) => {
             }
         })
     })
+    typeControlList.forEach((typeControl) => {
+        typeControl.addEventListener("input", () => {
+            if(typeControl.value == "0") {
+                body.style.backgroundImage = "url(static/background/mix.gif)"
+            } else if(typeControl.value == "1") {
+                body.style.backgroundImage = "url(static/background/xK.gif)"
+            } else if (typeControl.value == "2") {
+                body.style.backgroundImage = "url(static/background/g32K.gif)"
+            } else {
+                body.style.backgroundImage = "url(static/background/lennart-butz-idea5anim4.gif)"
+            }
+            while(musicList.length-1 > index) {
+                musicList.pop();
+            }
+            if (typeControl.value == "0") {
+                fetch(`station/json/songs`).then(async (response) => {
+                    let newList = await response.json();
+                    musicList = musicList.concat(shuffleList(newList));
+                })
+            } else {
+                fetch(`station/json/songs/${typeControl.value}`).then(async (response) => {
+                    let newList = await response.json();
+                    musicList = musicList.concat(shuffleList(newList));
+                })
+            }
+        })
+    })
+
+
 })

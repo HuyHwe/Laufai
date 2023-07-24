@@ -7,17 +7,22 @@
     <link href="static/css/station.css" type="text/css" rel="stylesheet" >
     <link rel="shortcut icon" href="#">
 </head>
-<body>
-    <h1>Lau station</h1>
-    <p>Music for life</p>
-    <div>
-        <input id="type-lowg" name="type" type="radio" value="1">
-        <label for="type-lowg">Low G</label><br>
-        <input id="type-ngot" name="type" type="radio" value="2">
-        <label for="type-ngot">Ngọt</label><br>
-        <input id="type-indi" name="type" type="radio" value="3">
-        <label for="type-indi">Indie</label><br>
+<body id="body">
+    <div id="top-part">
+        <h1>Lau station</h1>
+        <p>Music for life</p>
+        <div id="type-controller">
+            <input id="type-mix" name="type" type="radio" value="0" class="type" checked="checked">
+            <label for="type-mix">Mix</label><br>
+            <input id="type-lowg" name="type" type="radio" value="1" class="type">
+            <label for="type-lowg">Low G</label><br>
+            <input id="type-ngot" name="type" type="radio" value="2" class="type">
+            <label for="type-ngot">Ngọt</label><br>
+            <input id="type-indi" name="type" type="radio" value="3" class="type">
+            <label for="type-indi">Indie</label><br>
+        </div>
     </div>
+    
     <div id="controller">
         <p id="title"></p>
         <!-- <input type="range" id="volume" min="0" max="1" value="1" step="0.01" /> -->
