@@ -16,19 +16,7 @@ jsonStationRouter.get("/songs",(req, res, next) => {
 
 jsonStationRouter.post("/nop", (req, res, next) => {
     const id =  req.body.id;
-    console.log(id);
-    songs.findOne({where: {
-        id:id,
-    }}).then((response) => {
-        songs.update({nop: response.nop+1}, {where: 
-            {
-                id:id
-            }
-        });
-        console.log("nop updated");
-    }).catch((e) => {
-        console.log(e);
-    })
+    songs.increment('nop', { by: 1, where: { id: id }});
     
 })
 

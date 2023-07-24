@@ -26,10 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
     },
     type: DataTypes.INTEGER,
-    nop: {
-      type: DataTypes.INTEGER,
-      default: 0,
-    },
   }, {
     sequelize,
     modelName: 'songs',

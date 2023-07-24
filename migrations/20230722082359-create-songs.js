@@ -23,10 +23,6 @@ module.exports = {
       type: {
         type: Sequelize.INTEGER
       },
-      nop: {
-        type: Sequelize.INTEGER,
-        default: 0,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

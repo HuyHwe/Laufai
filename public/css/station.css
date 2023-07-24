@@ -1,5 +1,5 @@
 body{
-    background-image: url('../background/lennart-butz-idea5anim4.gif');
+    background-image: url('../background/g32K.gif');
     background-size: cover;
     height: 100vh;
     padding:0;
@@ -11,3 +11,30 @@ body{
     margin: 0;
     color: white;
 }
+img {
+    margin: 0;
+    padding: 0;
+}
+.button {
+    height: 5vh;
+    width: auto;
+}
+
+#controller {
+    position: absolute;
+    bottom: 3vh;
+    left: 2vw;
+}
+
+img.volume {
+    height: 5vh;
+    width: auto;
+    margin: 0;
+    padding: 0.1vw;
+}
+
+#volume-bar {
+    font-size: 0;
+    position: fixed;
+}
+

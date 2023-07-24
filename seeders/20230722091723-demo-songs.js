@@ -9,7 +9,6 @@ module.exports = {
         url: "static/music/Cắt kéo trên Lênin  Low G  Rap Nhà Làm Lyric video.mp3",
         type: 1,
         artist: "low g",
-        nop:14,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -18,7 +17,6 @@ module.exports = {
         url: "static/music/An Thần ft Thắng  Low G  Rap Nhà Làm.mp3",
         type: 14,
         artist: "low g ft. thang",
-        nop:0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -27,7 +25,6 @@ module.exports = {
         url: "static/music/Cafe sữa Trà đá và Bún chả Hanoian Dreams  Low G  Rap Nhà Làm.mp3",
         type: 1,
         artist: "low g",
-        nop:14,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -36,7 +33,6 @@ module.exports = {
         url: "static/music/Chung Cư  Low G.mp3",
         type: 1,
         artist: "low g",
-        nop:15,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -45,7 +41,6 @@ module.exports = {
         url: "static/music/Dáng Xinh prod Trungng  Low G  Rap Nhà Làm.mp3",
         type: 1,
         artist: "low g prod Trungng",
-        nop:18,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -54,7 +49,6 @@ module.exports = {
         url: "static/music/Flexin Trên Circle K 2  Low G  Rap Nhà Làm.mp3",
         type: 1,
         artist: "low g",
-        nop:21,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -63,7 +57,6 @@ module.exports = {
         url: "static/music/Flexin trên Circle k.mp3",
         type: 1,
         artist: "low g",
-        nop:4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -72,7 +65,6 @@ module.exports = {
         url: "static/music/Không Thích  Low G  Rap Nhà Làm.mp3",
         type: 1,
         artist: "low g",
-        nop:10,
         createdAt: new Date(),
         updatedAt: new Date()
       },

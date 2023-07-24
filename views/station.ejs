@@ -10,9 +10,26 @@
 <body>
     <h1>Lau station</h1>
     <p>Music here</p>
-    <button id="play">Play</button>
-    <button id="next">Next</button>
-    <input type="range" id="volume" min="0" max="10" value="2" step="0.01" />
+    <div id="controller">
+        <p id="title"></p>
+        <!-- <input type="range" id="volume" min="0" max="1" value="1" step="0.01" /> -->
+        
+        <img id="back" class="button" src="static/button/back.png"></button>
+        <img id="play" class="button" src="static/button/play.png"></button>
+        <img id="next" class="button" src="static/button/next.png"></button>
+        <span id="volume-bar">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+            <img src="static/button/volumeOn.png" class="volume">
+        </span>
+    </div>
+    
 </body>
 <script src="static/js/station.js" type="text/javascript"></script>
 </html>
